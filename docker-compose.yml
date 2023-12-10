@@ -1,0 +1,11 @@
+version: '3'
+services:
+  laravel:
+    container_name: laravel1
+    command: /usr/local/bin/run.sh
+    build: .
+    ports:
+      - 8080:80
+    volumes:
+      - ./src:/var/www/html
+      - ./run.sh/usr/local/bin/run.sh
