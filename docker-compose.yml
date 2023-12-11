@@ -5,7 +5,6 @@ services:
     command: /usr/local/bin/run.sh
     build: .
     ports:
-      - 8080:80
+      - 8089:8000
     volumes:
       - ./src:/var/www/html
-      - ./run.sh/usr/local/bin/run.sh
