@@ -9,7 +9,9 @@ RUN cd /tmp && php composer-setup.php
 RUN cd /tmp && php -r "unlink('composer-setup.php');"
 RUN mv /tmp/composer.phar /usr/local/bin/composer
 
-RUN apt-get update -y && apt install git libzip-dev libpng-dev unzip -y
+RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash -
+
+RUN apt-get update -y && apt install git libzip-dev libpng-dev unzip nodejs -y
 
 RUN docker-php-ext-install zip gd
 

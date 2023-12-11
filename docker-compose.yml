@@ -8,6 +8,8 @@ services:
     build: .
     ports:
       - 8089:8000
+      - 5173:5173
+      - 5174:5174
     volumes:
       - ./src:/var/www/html
     networks:
