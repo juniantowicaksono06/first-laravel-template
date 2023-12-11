@@ -3,8 +3,26 @@ services:
   laravel:
     container_name: laravel1
     command: /usr/local/bin/run.sh
+    env_file:
+      - ./.env
     build: .
     ports:
       - 8089:8000
     volumes:
       - ./src:/var/www/html
+    networks:
+      - laravel_network
+  mysql:
+    container_name: laravel_mysql
+    image: mysql:8.0.32
+    ports: 
+      - 3309:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=Abcd1234
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    networks:
+      - laravel_network
+networks:
+  laravel_network:
+    driver: bridge
