@@ -11,9 +11,13 @@ RUN mv /tmp/composer.phar /usr/local/bin/composer
 
 RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash -
 
-RUN apt-get update -y && apt install git libzip-dev libpng-dev unzip nodejs -y
+RUN apt-get update -y && apt install git libzip-dev libpng-dev unzip nodejs libcurl4-openssl-dev pkg-config libssl-dev -y
 
-RUN docker-php-ext-install zip gd
+RUN docker-php-ext-install zip gd mysqli pdo pdo_mysql
+
+RUN pecl install mongodb && docker-php-ext-enable mongodb
+
+RUN rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www/html
 

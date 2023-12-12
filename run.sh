@@ -8,6 +8,7 @@ if [ "$(ls -A $folder_path)" ]; then
 else
     echo "Serving Folder is empty creating laravel from scratch"
     cd /var/www/ && composer create-project laravel/laravel html
+    cd /var/www/html && composer require mongodb/laravel-mongodb
     # /usr/local/bin/apache2-foreground
     cd /var/www/html && composer require inertiajs/inertia-laravel
     php artisan inertia:middleware

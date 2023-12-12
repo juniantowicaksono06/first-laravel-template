@@ -1,3 +1,6 @@
 src
 .env
+.mongo_env
+.mysql_env
 mysql_data
+mongo_data

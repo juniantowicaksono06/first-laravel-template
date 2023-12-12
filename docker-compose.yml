@@ -19,10 +19,31 @@ services:
     image: mysql:8.0.32
     ports: 
       - 3309:3306
-    environment:
-      - MYSQL_ROOT_PASSWORD=Abcd1234
+    env_file:
+      - ./.mysql_env
     volumes:
       - ./mysql_data:/var/lib/mysql
+    networks:
+      - laravel_network
+  mongo:
+    container_name: laravel_mongo
+    image: mongo:7.0
+    volumes:
+      - ./mongo_data:/data/db
+    env_file:
+      - ./.mongo_env
+    networks:
+      - laravel_network
+  mongo-express:
+    container_name: laravel_mongo_express
+    image: mongo-express:1.0.0-18-alpine3.18
+    depends_on:
+      - mongo
+    restart: always
+    ports:
+      - 8084:8081
+    env_file:
+      - ./.mongo_env
     networks:
       - laravel_network
 networks:
