@@ -4,6 +4,8 @@ target_dir="/var/www/html"
 
 if [ "$(ls -A $folder_path)" ]; then
     echo "Serving Folder is not empty running PHP Artisan"
+    composer install
+    npm install
     # /usr/local/bin/apache2-foreground
 else
     echo "Serving Folder is empty creating laravel from scratch"
