@@ -11,6 +11,23 @@ RUN mv /tmp/composer.phar /usr/local/bin/composer
 
 RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash -
 
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    git \
+    curl \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libmcrypt-dev \
+    libgd-dev \
+    jpegoptim optipng pngquant gifsicle \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    sudo \
+    unzip
+
 RUN apt-get update -y && apt install git libzip-dev libpng-dev unzip nodejs libcurl4-openssl-dev pkg-config libssl-dev -y
 
 RUN docker-php-ext-install zip gd mysqli pdo pdo_mysql
@@ -24,3 +41,8 @@ WORKDIR /var/www/html
 COPY ./run.sh /usr/local/bin/run.sh
 
 RUN chmod u+x /usr/local/bin/run.sh
+
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd

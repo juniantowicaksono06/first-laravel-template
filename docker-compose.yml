@@ -25,20 +25,41 @@ services:
       - ./mysql_data:/var/lib/mysql
     networks:
       - laravel_network
-  mongo:
-    container_name: laravel_mongo
+  mongo1:
+    container_name: laravel_mongo1
     image: mongo:7.0
+    command: mongod --config /etc/mongo/mongod.conf --auth
+    # command: sleep 86400 &
     volumes:
-      - ./mongo_data:/data/db
+      - ./mongo_data1:/data/db
+      - ./mongo_config/mongo1:/etc/mongo
+      - ./mongo_key:/data/configdb/mongo_key
     env_file:
       - ./.mongo_env
+    expose:
+      - 27017
+    networks:
+      - laravel_network
+  mongo2:
+    container_name: laravel_mongo2
+    image: mongo:7.0
+    command: mongod --config /etc/mongo/mongod.conf --auth
+    volumes:
+      - ./mongo_data2:/data/db
+      - ./mongo_config/mongo2:/etc/mongo
+      - ./mongo_key:/data/configdb/mongo_key
+    env_file:
+      - ./.mongo_env
+    expose:
+      - 27017
     networks:
       - laravel_network
   mongo-express:
     container_name: laravel_mongo_express
     image: mongo-express:1.0.0-18-alpine3.18
     depends_on:
-      - mongo
+      - mongo1
+      - mongo2
     restart: always
     ports:
       - 8084:8081

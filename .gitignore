@@ -3,4 +3,7 @@ src
 .mongo_env
 .mysql_env
 mysql_data
-mongo_data
+mongo_data1
+mongo_data2
+mongo_config/mongo3
+mongo_key
