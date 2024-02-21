@@ -26,7 +26,8 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     zip \
     sudo \
-    unzip
+    unzip \ 
+    libmagickwand-dev
 
 RUN apt-get update -y && apt install git libzip-dev libpng-dev unzip nodejs libcurl4-openssl-dev pkg-config libssl-dev -y
 
@@ -46,3 +47,6 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+
+RUN pecl install imagick; \
+    docker-php-ext-enable imagick;
